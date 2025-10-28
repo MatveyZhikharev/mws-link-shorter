@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            min-width: 400px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .input-group div {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .url-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid;
+            border-radius: 50px;
+            font-size: 16px;
+            outline: none;
+            background: transparent;
+            animation: borderAnimation 3s infinite alternate;
+        }
+
+        @keyframes borderAnimation {
+            0% {
+                border-color: #667eea;
+                box-shadow: 0 0 10px #667eea;
+            }
+            25% {
+                border-color: #764ba2;
+                box-shadow: 0 0 10px #764ba2;
+            }
+            50% {
+                border-color: #f093fb;
+                box-shadow: 0 0 10px #f093fb;
+            }
+            75% {
+                border-color: #f5576c;
+                box-shadow: 0 0 10px #f5576c;
+            }
+            100% {
+                border-color: #4facfe;
+                box-shadow: 0 0 10px #4facfe;
+            }
+        }
+
+        .submit-btn {
+            padding: 15px 25px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .short-url {
+            color: #667eea;
+            font-weight: bold;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>MWS shorter</h1>
+
+    <div class="input-group">
+        <input type="url" class="url-input" placeholder="Введите ссылку..." id="urlInput">
+        <div>
+            <input type="number" class="url-input" placeholder="Введите желаемую длину..." id="lenInput" min="3"
+                   max="12" value="6">
+            <button class="submit-btn" onclick="shortenUrl()">сократить</button>
+        </div>
+    </div>
+
+    <div class="error" id="error-div">
+        <span class="short-url" id="error"></span>
+    </div>
+
+    <div class="result" id="result">
+        <strong>Сокращенная ссылка:</strong>
+        <a class="short-url" id="shortUrl"></a>
+        <br>
+        <strong>Количество переходов:</strong>
+        <span class="short-url" id="counter"></span>
+    </div>
+</div>
+
+<script>
+
+    async function shortenUrl() {
+        const urlInput = document.getElementById('urlInput');
+        const lenInput = document.getElementById('lenInput');
+        const resultDiv = document.getElementById('result');
+        const shortUrlDiv = document.getElementById('shortUrl');
+        const counterDiv = document.getElementById('counter');
+        const errorSpan = document.getElementById('error');
+
+        const url = urlInput.value.trim();
+        const len = lenInput.value.trim();
+
+
+        if (!url) {
+            errorSpan.textContent = 'Пожалуйста, введите ссылку';
+            return;
+        } else if (url.indexOf('.') == -1) {
+            errorSpan.textContent = 'Введённое значение не ссылка';
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/links/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ url: url, len: len})
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                shortUrlDiv.textContent = "mws-shorter.ru/" + data.shortKey;
+                shortUrlDiv.href = "mws-shorter.ru/" + data.shortKey;
+                counterDiv.textContent = data.clickCount || 0;
+                resultDiv.style.display = 'block';
+            } else {
+                const errorText = await response.text();
+                if (errorText) {
+                    throw new Error('Ошибка! ' + errorText);
+                }
+                throw new Error('Ошибка сервера');
+            }
+        } catch (error) {
+            errorSpan.textContent = error.message
+        }
+    }
+
+    document.getElementById('urlInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            shortenUrl();
+        }
+    });
+</script>
+</body>
+</html>
