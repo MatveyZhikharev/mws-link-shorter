@@ -20,8 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class LinkShorterApplicationE2ETest {
-
+public class LinkShorterApplicationE2ETest {
   @Container
   static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15")
       .withDatabaseName("testdb")
@@ -158,7 +157,7 @@ class LinkShorterApplicationE2ETest {
     ResponseEntity<String> response = restTemplate.getForEntity("/", String.class);
 
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-    assertThat(response.getBody()).contains("MWS shorter");
+    assertThat(response.getBody()).contains("MWS link shorter");
   }
 
   private String extractShortKey(String jsonResponse) {

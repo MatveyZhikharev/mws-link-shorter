@@ -19,8 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Testcontainers
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class ShorterRepositoryTest {
-
+public class ShorterRepositoryTest {
   @Container
   static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15")
       .withDatabaseName("testdb")

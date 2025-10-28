@@ -102,7 +102,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>MWS shorter</h1>
+    <h1>MWS link shorter</h1>
 
     <div class="input-group">
         <input type="url" class="url-input" placeholder="Введите ссылку..." id="urlInput">
@@ -159,8 +159,8 @@
 
             if (response.ok) {
                 const data = await response.json();
-                shortUrlDiv.textContent = "mws-shorter.ru/" + data.shortKey;
-                shortUrlDiv.href = "mws-shorter.ru/" + data.shortKey;
+                shortUrlDiv.textContent = "mws-link-shorter.ru/" + data.shortKey;
+                shortUrlDiv.href = "mws-link-shorter.ru/" + data.shortKey;
                 counterDiv.textContent = data.clickCount || 0;
                 resultDiv.style.display = 'block';
             } else {

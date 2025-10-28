@@ -16,7 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Testcontainers
 @SpringBootTest
 public class ShorterServiceTest {
-
   @Container
   static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15")
       .withDatabaseName("testdb")
