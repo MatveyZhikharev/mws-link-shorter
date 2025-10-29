@@ -27,6 +27,5 @@ http://localhost:8080/swagger-ui/index.html
 В docker развернут jar-файл проекта, база данных PostgreSQL и Nginx для настройки защищённого доступа через SSL
 
 #### Схема запросов выглядит так
-`Пользователь -> dns-сервер -> Nginx (80/443) -> Spring Boot (8080) -> PostgreSQL (5432)`
 
 `Пользователь -(HTTP/HTTPS)-> Nginx (80/443) → SSL терминация -> Spring Boot (8080) -> бизнес-логика -> PostgreSQL (5432) -> хранение данных`
