@@ -160,7 +160,7 @@
             if (response.ok) {
                 const data = await response.json();
                 shortUrlDiv.textContent = "mws-link-shorter.ru/" + data.shortKey;
-                shortUrlDiv.href = "mws-link-shorter.ru/" + data.shortKey;
+                shortUrlDiv.href = "/" + data.shortKey;
                 counterDiv.textContent = data.clickCount || 0;
                 resultDiv.style.display = 'block';
             } else {

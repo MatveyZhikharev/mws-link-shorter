@@ -1,5 +1,5 @@
 FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
-COPY link-shorter-0.0.1-SNAPSHOT.jar app.jar
+COPY target/link-shorter-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
 CMD ["java", "-jar", "app.jar"]
