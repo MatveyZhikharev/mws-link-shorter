@@ -63,6 +63,7 @@ public class ShorterService {
       attempts++;
       logger.debug("Generation attempt {}: shortKey = {}", attempts, shortKey);
     } while (shorterRepository.existsByShortKey(shortKey) && attempts < 10);
+    shortKey = shortKey.substring(0, len);
 
     if (attempts >= 10) {
       logger.error("Failed to generate unique short key after {} attempts", attempts);
