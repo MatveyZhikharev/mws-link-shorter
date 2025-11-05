@@ -6,11 +6,6 @@
 
 Проектнаписан на Spring Boot с использованием базы данных PostgreSQl, есть контроллер для получения пользовательских интерфейсов и rest контроллер для запросов к API для сокращения ссылок. Для управления базой данных используется Hibernate, а для миграций — FlyWay. Написаны Unit тесты для каждого уровня приложения и E2E тест. Применены технологии мок тестирования и testcontainers.
 
-### API
-
-http://localhost:8080/swagger-ui/index.html
-
-
 ### Сборка
 `mvn clean package`
 
@@ -19,6 +14,11 @@ http://localhost:8080/swagger-ui/index.html
 `docker-compose up -d`
 
 Доступно по: http://localhost:8080
+
+### API
+
+http://localhost:8080/swagger-ui/index.html
+
 
 ## Развёртывание проекта
 
