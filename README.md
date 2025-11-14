@@ -5,7 +5,7 @@
 
 Прямо сейчас работает на
 
-https://mws-link-shorter.ru
+https://mws-link-shorter.ru/
 
 http://217.60.248.162:8080/
 ## О проекте
